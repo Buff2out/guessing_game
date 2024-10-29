@@ -8,10 +8,10 @@ fn main() {
         io::stdin()
             .read_line(&mut guess)
             .expect("failed to readline");
-        let guess: u32 = guess
-            .trim()
-            .parse()
-            .expect("invalid type casting from string to u32");
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
         match guess.cmp(&secret_num) {
             Ordering::Less => println!("guess less than secret_num"),
             Ordering::Greater => println!("guess greater than secret_num"),
